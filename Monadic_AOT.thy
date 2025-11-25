@@ -460,11 +460,15 @@ lemma PLM_39_2_lambda_5: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x .
   unfolding ValidNec_ValidIn Lambda_denotes AOT_box_def
   unfolding ValidIn_def
   by metis
-lemma PLM_39_2_lambda_6: \<open>(\<And> x  . \<phi> x \<equiv>\<^sub>d\<^sub>f \<psi> x) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_6: \<open>(\<And> y . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> y x)\<^bold>\<down>]) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<forall> y . \<phi> y x)\<^bold>\<down>]\<close>
+  unfolding ValidNec_ValidIn Lambda_denotes AOT_all_def
+  unfolding ValidIn_def
+  by metis
+lemma PLM_39_2_lambda_7: \<open>(\<And> x  . \<phi> x \<equiv>\<^sub>d\<^sub>f \<psi> x) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes EquivDef_def
   unfolding ValidIn_def
   by blast
-lemma PLM_39_2_lambda_7: \<open>(\<And> y . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x y)\<^bold>\<down>]) \<Longrightarrow> (\<And> x . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>y . \<psi> x y)\<^bold>\<down>]) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<lparr>(\<^bold>\<lambda>y . \<psi> x y),x\<rparr>)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_8: \<open>(\<And> y . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x y)\<^bold>\<down>]) \<Longrightarrow> (\<And> x . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>y . \<psi> x y)\<^bold>\<down>]) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<lparr>(\<^bold>\<lambda>y . \<psi> x y),x\<rparr>)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes
   unfolding ValidIn_def
   by (smt (verit, ccfv_threshold) Beta Lambda_denotes PLM_39_2_a ValidIn_def ValidNec_def)
