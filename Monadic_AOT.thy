@@ -434,45 +434,60 @@ lemma PLM_39_1: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . 
 lemma PLM_39_1': \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<tau>\<^bold>\<down>\<^sub>\<o> \<^bold>\<rightarrow> \<phi> \<tau>)]\<close>
   by (simp add: AOT_all\<^sub>\<o>_def AOT_imp_def ValidNec_def)
 
-lemma PLM_39_2_a: \<open>[\<Turnstile>\<^sub>\<box> (Some x)\<^bold>\<down>]\<close>
+named_theorems PLM_39_2
+
+lemma PLM_39_2_a[PLM_39_2]: \<open>[\<Turnstile>\<^sub>\<box> (Some x)\<^bold>\<down>]\<close>
   by (simp add: AOT_denotes_def ValidNec_def)
-lemma PLM_39_2_a': \<open>[\<Turnstile>\<^sub>\<box> \<phi>\<^bold>\<down>\<^sub>\<o>]\<close>
+lemma PLM_39_2_a'[PLM_39_2]: \<open>[\<Turnstile>\<^sub>\<box> \<phi>\<^bold>\<down>\<^sub>\<o>]\<close>
   by (simp add: AOT_denotes\<^sub>\<o>_def ValidNec_def)
 
-lemma PLM_39_2_lambda_0: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi>)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_0[PLM_39_2]:
+  \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi>)\<^bold>\<down>]\<close>
   using Lambda_denotes ValidIn_def ValidNec_def by auto
-lemma PLM_39_2_lambda_1: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<lparr>F,x\<rparr>)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_1[PLM_39_2]:
+  \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<lparr>F,x\<rparr>)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes
   by (metis Exe.simps(1) Exe_denotes1)
-lemma PLM_39_2_lambda_2: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<not>\<phi> x)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_2[PLM_39_2]:
+  \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<not>\<phi> x)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes AOT_not_def
   unfolding ValidIn_def
   by metis
-lemma PLM_39_2_lambda_3: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x \<^bold>\<rightarrow> \<psi> x)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_3[PLM_39_2]:
+  \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x \<^bold>\<rightarrow> \<psi> x)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes AOT_imp_def
   unfolding ValidIn_def
   by metis
-lemma PLM_39_2_lambda_4: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<A>\<phi> x)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_4[PLM_39_2]:
+  \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<A>\<phi> x)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes AOT_act_def
   unfolding ValidIn_def
   by metis
-lemma PLM_39_2_lambda_5: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<box>\<phi> x)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_5[PLM_39_2]:
+  \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<box>\<phi> x)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes AOT_box_def
   unfolding ValidIn_def
   by metis
-lemma PLM_39_2_lambda_6: \<open>(\<And> y . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> y x)\<^bold>\<down>]) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<forall> y . \<phi> y x)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_6[PLM_39_2]:
+  \<open>(\<And> y . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> y x)\<^bold>\<down>]) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<^bold>\<forall> y . \<phi> y x)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes AOT_all_def
   unfolding ValidIn_def
   by metis
-lemma PLM_39_2_lambda_7: \<open>(\<And> x  . \<phi> x \<equiv>\<^sub>d\<^sub>f \<psi> x) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>]\<close>
-  unfolding ValidNec_ValidIn Lambda_denotes EquivDef_def
-  unfolding ValidIn_def
-  by blast
-lemma PLM_39_2_lambda_8: \<open>(\<And> y . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x y)\<^bold>\<down>]) \<Longrightarrow> (\<And> x . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>y . \<psi> x y)\<^bold>\<down>]) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<lparr>(\<^bold>\<lambda>y . \<psi> x y),x\<rparr>)\<^bold>\<down>]\<close>
+lemma PLM_39_2_lambda_7[PLM_39_2]:
+  \<open>(\<And> y . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x y)\<^bold>\<down>]) \<Longrightarrow> (\<And> x . [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>y . \<psi> x y)\<^bold>\<down>]) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<lparr>(\<^bold>\<lambda>y . \<psi> x y),x\<rparr>)\<^bold>\<down>]\<close>
   unfolding ValidNec_ValidIn Lambda_denotes
   unfolding ValidIn_def
   by (smt (verit, ccfv_threshold) Beta Lambda_denotes PLM_39_2_a ValidIn_def ValidNec_def)
+lemma PLM_39_2_lambda_8[PLM_39_2]:
+  \<open>(\<And> x  . \<phi> x \<equiv>\<^sub>d\<^sub>f \<psi> x) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<psi> x)\<^bold>\<down>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down>]\<close>
+  unfolding ValidNec_ValidIn Lambda_denotes EquivDef_def
+  unfolding ValidIn_def
+  by blast
 (* ... *)
+
+text\<open>Example for showing that a complex lambda-expression denotes:\<close>
+lemma "[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . p \<^bold>\<or> \<^bold>\<diamond>(\<^bold>\<forall>y . \<lparr>F,y\<rparr> \<^bold>\<rightarrow> \<lparr>\<^bold>\<lambda> z . \<lparr>G,z\<rparr> \<^bold>& \<lparr>F,x\<rparr>,x\<rparr>))\<^bold>\<down>]"
+  by (rule PLM_39_2 PLM)+
 
 lemma PLM_39_3: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . \<phi> \<alpha> \<^bold>\<rightarrow> \<psi> \<alpha>) \<^bold>\<rightarrow> ((\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<^bold>\<forall> \<alpha> . \<psi> \<alpha>))]\<close>
   by (simp add: AOT_all_def AOT_imp_def ValidNec_def)
