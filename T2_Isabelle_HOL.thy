@@ -171,8 +171,10 @@ lemma \<open>(\<lambda> x . x = x) (\<lambda> F G . F z \<longrightarrow> G z) \
 
 subsection\<open>Church's Simple Theory of Types in HOL\<close>
 
-text\<open>We will not dicuss this in detail, but for those familiar:
-     The HOL logic is basically Church's Simple Theory of Types with Identity as well
+text\<open>Note this section and the next are not particularly relevant for our course,
+     but an FYI for the theoretical background!\<close>
+
+text\<open>The HOL logic is basically Church's Simple Theory of Types with Identity as well
      as definite and indefinite choice operators.\<close>
 
 typedecl \<iota> \<comment> \<open>No fixed type of individuals, but we can declare arbitrary types.\<close>
@@ -232,13 +234,13 @@ term "SOME x . \<phi> x"
 lemma "P x \<Longrightarrow> P (SOME x . P x)" using someI.
 
 text\<open>Note: Church's Simple Theory of Types requires several more Axioms.
-           For the curious we show below that we have all of them in terms
-           of a simpler axiomatization.\<close>
+           Below we state all axioms of a simpler equivalent formulation of the system.\<close>
 
 subsection\<open>System \<open>\<Q>\<^sub>0\<close>\<close>
 text\<open>The actual construction of HOL is closer to Peter Andrew's \<open>\<Q>\<^sub>0\<close>.
      See @{url \<open>https://plato.stanford.edu/entries/type-theory-church/#FormBaseEqua\<close>}\<close>
 
+subsubsection\<open>Terms and abbreviations\<close>
 term "(=)" \<comment> \<open>\<open>Q\<close>\<close>
 lemma "(A = B) = (=) A B"..
 lemma "(A \<longleftrightarrow> B) = (A = B)".. \<comment> \<open>\<open>\<equiv>\<close>\<close>
@@ -248,7 +250,6 @@ lemma "False = ((\<lambda> x . True) = (\<lambda> x . x))" \<comment> \<open>\<o
   by metis
 lemma "All = (=) (\<lambda> x . True)" \<comment> \<open>\<open>\<Pi>\<close>\<close>
   by auto
-term All \<comment> \<open>\<Pi>\<close>
 lemma "(\<forall>x . \<phi> x) = All \<phi>"..
 lemma "(\<and>) = (\<lambda>x y . (\<lambda> g::\<o>\<Rightarrow>\<o>\<Rightarrow>\<o> . g True True) = (\<lambda>g . g x y))"
   by (metis (full_types))
@@ -257,13 +258,16 @@ lemma "Not = (=) False"
   by auto
 lemma "(\<not>\<phi>) = Not \<phi>"..
 
+subsubsection\<open>Axioms\<close>
+
 lemma Q1: "(g True \<and> g False) = (\<forall>x . g x)"
   by (metis (full_types))
 lemma Q2: "(x = y) \<longrightarrow> (f x = f y)"
   by auto
 lemma Q3: "(f = g) = (\<forall> x . f x = g x)"
   by auto
-lemma Q4: "(\<lambda> x . \<phi> x) y = \<phi> y"..
+lemma Q4: "(\<lambda> x . \<phi> x) y = \<phi> y".. \<comment> \<open>Isabelle automatically takes care of "substitutability"
+                                      by construction using a de-Bruijin representation internally.\<close>
 lemma Q5: "(THE x . x = y) = y" using the_eq_trivial.
 
 text\<open>You can actually look at the precise construction of the HOL-logic itself!
