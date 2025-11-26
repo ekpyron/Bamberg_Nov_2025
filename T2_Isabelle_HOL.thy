@@ -231,6 +231,47 @@ text\<open>We also get indefinite choice\<close>
 term "SOME x . \<phi> x"
 lemma "P x \<Longrightarrow> P (SOME x . P x)" using someI.
 
+text\<open>Note: Church's Simple Theory of Types requires several more Axioms.
+           For the curious we show below that we have all of them in terms
+           of a simpler axiomatization.\<close>
+
+subsection\<open>System \<open>\<Q>\<^sub>0\<close>\<close>
+text\<open>The actual construction of HOL is closer to Peter Andrew's \<open>\<Q>\<^sub>0\<close>.
+     See @{url \<open>https://plato.stanford.edu/entries/type-theory-church/#FormBaseEqua\<close>}\<close>
+
+term "(=)" \<comment> \<open>\<open>Q\<close>\<close>
+lemma "(A = B) = (=) A B"..
+lemma "(A \<longleftrightarrow> B) = (A = B)".. \<comment> \<open>\<open>\<equiv>\<close>\<close>
+lemma "True = ((=) = (=))" \<comment> \<open>\<open>T\<^sub>0\<close>\<close>
+  by auto
+lemma "False = ((\<lambda> x . True) = (\<lambda> x . x))" \<comment> \<open>\<open>F\<^sub>0\<close>\<close>
+  by metis
+lemma "All = (=) (\<lambda> x . True)" \<comment> \<open>\<open>\<Pi>\<close>\<close>
+  by auto
+term All \<comment> \<open>\<Pi>\<close>
+lemma "(\<forall>x . \<phi> x) = All \<phi>"..
+lemma "(\<and>) = (\<lambda>x y . (\<lambda> g::\<o>\<Rightarrow>\<o>\<Rightarrow>\<o> . g True True) = (\<lambda>g . g x y))"
+  by (metis (full_types))
+lemma "(\<phi> \<and> \<psi>) = (\<and>) \<phi> \<psi>"..
+lemma "Not = (=) False"
+  by auto
+lemma "(\<not>\<phi>) = Not \<phi>"..
+
+lemma Q1: "(g True \<and> g False) = (\<forall>x . g x)"
+  by (metis (full_types))
+lemma Q2: "(x = y) \<longrightarrow> (f x = f y)"
+  by auto
+lemma Q3: "(f = g) = (\<forall> x . f x = g x)"
+  by auto
+lemma Q4: "(\<lambda> x . \<phi> x) y = \<phi> y"..
+lemma Q5: "(THE x . x = y) = y" using the_eq_trivial.
+
+text\<open>You can actually look at the precise construction of the HOL-logic itself!
+     Use Ctrl-click on one the following theorem to jump to HOLs own construction
+     in Isabelle/Pure. Note: this will not be easy to read without a good deal of
+     familiarity with Isabelle/HOL.\<close>
+thm refl
+
 subsection\<open>Contents of @{theory Main}\<close>
 
 text\<open>Note that @{theory Main} contains a lot more than we have seen and
