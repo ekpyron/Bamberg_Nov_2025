@@ -66,7 +66,8 @@ primrec contains_basecolor :: "ComplexColor \<Rightarrow> Color \<Rightarrow> bo
   "contains_basecolor (BaseColor x) y = (x = y)"
 | "contains_basecolor (MixOfColors x y) z = (contains_basecolor x z \<or> contains_basecolor y z)"
 
-lemma "contains_basecolor Yellow Red \<and> contains_basecolor Yellow Green \<and> \<not>contains_basecolor Yellow Blue"
+lemma "contains_basecolor Yellow Red \<and> contains_basecolor Yellow Green \<and>
+       \<not>contains_basecolor Yellow Blue"
   by (simp add: Yellow_def)
 
 lemma "contains_basecolor x Red \<or> contains_basecolor x Green \<or> contains_basecolor x Blue"

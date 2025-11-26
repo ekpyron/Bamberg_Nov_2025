@@ -25,7 +25,7 @@ datatype \<nu> = \<omega>\<nu> \<omega> | \<alpha>\<nu> \<alpha> \<comment> \<op
 
 consts \<alpha>\<sigma> :: \<open>\<alpha> \<Rightarrow> \<sigma>\<close> \<comment> \<open>Mapping Abstract Objects to Special Urelements\<close>
 
-text\<open>We specifically choose a surjective mapping.\<close>
+text\<open>We specifically choose a surjective mapping. We will need this in just one proof below!\<close>
 specification(\<alpha>\<sigma>)
   surj_\<alpha>\<sigma>: \<open>surj \<alpha>\<sigma>\<close>
 proof
@@ -566,7 +566,7 @@ proof -
   proof(rule ext; rule ext)
     fix x w
     obtain u where x: \<open>x = \<nu>\<upsilon> u\<close>
-      by (meson surjE surj_\<nu>\<upsilon>)
+      by (meson surjE surj_\<nu>\<upsilon>) \<comment> \<open>Note: here we need @{thm surj_\<nu>\<upsilon>}!\<close>
     show \<open>F x w = r x w\<close>
       unfolding x
       unfolding 2

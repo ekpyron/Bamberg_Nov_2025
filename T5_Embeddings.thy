@@ -90,8 +90,16 @@ lemma "\<Turnstile>\<^sub>s (0\<^sub>s \<le>\<^sub>s x) \<rightarrow>\<^sub>s (y
 lemma "\<Turnstile>\<^sub>s (x \<le>\<^sub>s y \<and>\<^sub>s y \<le>\<^sub>s x) \<rightarrow>\<^sub>s (x =\<^sub>s y)"
   by (simp add: Valid\<^sub>s_def And\<^sub>s_def Not\<^sub>s_def Equal\<^sub>s_def Imp\<^sub>s_def Leq\<^sub>s_def)
 
-text\<open>Note: in this case, our language is completely contained in unmodified HOL, so we could
-     just have used that:\<close>
+text\<open>Note:
+  \<^item> We no longer use datatypes! For complex languages the datatype
+    representation quickly becomes nested and a lot of proof require induction,
+    which we have seen hurts automation.
+  \<^item> Generally our embedding is much "thinner"
+  => We can expect better proof automation with shallow embeddings.
+\<close>
+
+text\<open>Note: in this case, our language is completely contained in unmodified HOL,
+           so we could just have used that:\<close>
 
 lemma "(x::int) + y = y + x"
   by auto
@@ -100,9 +108,18 @@ lemma "(0::int) \<le> x \<longrightarrow> (y \<le> y + x)"
 lemma "(x::int) \<le> y \<and> y \<le> x \<longrightarrow> x = y"
   by auto
 
-text\<open>Note that we need to force the type @{typ int}, since addition and less-than in Isabelle
-     are generic for any group and order (for which our theorems may not hold).\<close>
+text\<open>Note that we need to force the type @{typ int},
+     since addition and less-than-or-equal in Isabelle are generic
+     for any group and order (for which our theorems may not hold).\<close>
 
-text\<open>Things become more interesting in an actual extension of HOL, e.g. to higher-order modal logic.\<close>
+lemma "x + y = y + x"
+  nitpick[show_consts, format=2, atoms=a b, eval="x+y" "y+x"]
+  oops
+lemma "(x::'a::ab_semigroup_add) + y = y + x"
+  by (simp add: add.commute)
+
+
+text\<open>Things become more interesting in an actual extension of HOL,
+     e.g. to higher-order modal logic.\<close>
 
 end

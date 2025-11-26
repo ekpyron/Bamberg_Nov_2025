@@ -64,13 +64,13 @@ lemma "(\<forall>x . f x = g x) \<longleftrightarrow> f = g"
 subsection\<open>Typing (entering) Symbols in Isabelle\<close>
 
 text\<open>Isabelle allows the use of common syntax for logical symbols. They can be
-     selected manual using the "Symbols" tab at the bottom of the window.
+     selected manually using the "Symbols" tab at the bottom of the window.
      More conveniently, they can be entered by using a backslash "\" followed by
      latex-style names for symbols.\<close>
 
 text\<open>For example:
      \<forall> can by typed using \forall which will open a context menu for selecting a matching symbol.
-     One they context menu appears use "Tab" to accept the first suggestion.\<close>
+     Once the context menu appears, use "Tab" to accept the first suggestion.\<close>
 
 text\<open>Common logical connectives have even more convenient shortcuts, e.g.
      \<and> can simply be typed as /\, \<or> as \/, \<longrightarrow> as -->
@@ -175,7 +175,8 @@ text\<open>Note this section and the next are not particularly relevant for our 
      but an FYI for the theoretical background!\<close>
 
 text\<open>The HOL logic is basically Church's Simple Theory of Types with Identity as well
-     as definite and indefinite choice operators.\<close>
+     as definite and indefinite choice operators.
+     See @{url \<open>https://plato.stanford.edu/entries/type-theory-church/\<close>}.\<close>
 
 typedecl \<iota> \<comment> \<open>No fixed type of individuals, but we can declare arbitrary types.\<close>
 type_synonym \<o> = bool \<comment> \<open>bool as type of propositions\<close>
@@ -295,6 +296,8 @@ lemma "\<forall>x . P x \<longrightarrow> P x \<or> Q x"
   by auto
 
 text\<open>These methods perform multiple steps that transform the current goal:\<close>
+text\<open>Note: Enable the "Proof state" checkbox on top of the bottom sub-window,
+           s.t. Isabelle shows you the current proof obligations!\<close>
 lemma "\<forall>x . P x \<longrightarrow> P x \<or> Q x"
   apply (rule allI) \<comment> \<open>Introduction rule for the all-quantifier\<close>
   apply (rule impI) \<comment> \<open>Introduction rule for implication\<close>

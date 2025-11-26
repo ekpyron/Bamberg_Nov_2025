@@ -11,9 +11,9 @@ typedecl \<sigma> \<comment> \<open>Type of Special Urelements\<close>
 
 datatype \<upsilon> = \<omega>\<upsilon> \<omega> | \<sigma>\<upsilon> \<sigma> \<comment> \<open>Type of Urelements: Either Ordinary or Special\<close>
 
-type_synonym \<Pi> = "\<upsilon> \<Rightarrow> bool" \<comment> \<open>Unary Relations among / "Properties of Urelements"\<close>
+type_synonym \<Pi> = "\<upsilon> \<Rightarrow> bool" \<comment> \<open>Properties represented as boolean-valued functions on urelements.\<close>
 
-type_synonym \<alpha> = "\<Pi> set" \<comment> \<open>Type for Abstract Objects\<close>
+type_synonym \<alpha> = "\<Pi> set" \<comment> \<open>Type for Abstract Objects represented as sets of properties\<close>
 
 datatype \<nu> = \<omega>\<nu> \<omega> | \<alpha>\<nu> \<alpha> \<comment> \<open>Individuals: Either Ordinary or Abstract\<close>
 
@@ -43,5 +43,8 @@ text\<open>For any condition \<phi> on urelements, there is a property that is e
 lemma RelationComprehension: "\<exists>F . \<forall> x . \<lparr>F, x\<rparr> \<longleftrightarrow> \<phi> (\<nu>\<upsilon> x)"
   (* sledgehammer *)
   using Exe_def by auto
+
+text\<open>Exercise: Derive a version of PLM's definition of identity of individuals and properties!
+               (Note: the case of individuals will be tricky)\<close>
 
 end

@@ -53,7 +53,7 @@ lemma A2: \<open>[\<Turnstile>\<^sub>\<box> (\<phi> \<^bold>\<rightarrow> (\<psi
 lemma A3: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<not>\<phi> \<^bold>\<rightarrow> \<^bold>\<not>\<psi>) \<^bold>\<rightarrow> ((\<^bold>\<not>\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<rightarrow> \<phi>)]\<close>
   by (auto simp: mdefs)
 
-lemma A4: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<phi> x)]\<close>
+lemma A4: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> \<phi> x]\<close>
   by (auto simp: mdefs)
 lemma A5: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . \<phi> \<alpha> \<^bold>\<rightarrow> \<psi> \<alpha>) \<^bold>\<rightarrow> ((\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<^bold>\<forall> \<alpha> . \<psi> \<alpha>))]\<close>
   by (auto simp: mdefs)
@@ -91,6 +91,9 @@ lemma A13: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>\<phi> \<^bold>\<equi
 lemma \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall>x. \<^bold>\<box>\<phi> x) \<^bold>\<equiv> \<^bold>\<box>(\<^bold>\<forall>x. \<phi> x)]\<close>
   by (auto simp: mdefs)
 lemma \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<exists>x. \<^bold>\<diamond>\<phi> x) \<^bold>\<equiv> \<^bold>\<diamond>(\<^bold>\<exists>x. \<phi> x)]\<close>
+  by (auto simp: mdefs)
+
+lemma \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>(\<^bold>\<forall>R::(\<o> \<Rightarrow> \<o>) \<Rightarrow> \<o> \<Rightarrow> \<o>. \<phi> R) \<^bold>\<rightarrow> \<^bold>\<box>(\<phi> (\<lambda> F y . \<^bold>\<box>F y \<^bold>\<rightarrow> \<^bold>\<A>y))]\<close> \<comment> \<open>We get full higher order modal logic!\<close>
   by (auto simp: mdefs)
 
 lemma \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>\<phi>] = (\<forall>w . \<phi> w)\<close>
