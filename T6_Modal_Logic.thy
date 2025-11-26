@@ -101,4 +101,10 @@ lemma \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>\<phi>] = (\<forall>w . \<
 lemma \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<diamond>\<phi>] = (\<exists>w . \<phi> w)\<close>
   by (auto simp: mdefs)
 
+text\<open>Note: We specifically constructed an S5 modal logic. For weaker modal logics, necessity is
+           defined relative to an accessibility relation between worlds.
+           See e.g. @{url \<open>https://plato.stanford.edu/entries/logic-modal/#PosWorSem\<close>} for the
+           theoretical background or @{url \<open>https://arxiv.org/pdf/1507.08717\<close>} for a description
+           of a more general implementation in Isabelle/HOL.\<close>
+
 end
