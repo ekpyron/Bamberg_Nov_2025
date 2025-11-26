@@ -169,10 +169,77 @@ text\<open>HOL is higher-order and polymorphic!\<close>
 lemma \<open>(\<lambda> x . x = x) (\<lambda> F G . F z \<longrightarrow> G z) \<and> (\<lambda>x . x = x) z\<close>
   by auto
 
+subsection\<open>Church's Simple Theory of Types in HOL\<close>
+
+text\<open>We will not dicuss this in detail, but for those familiar:
+     The HOL logic is basically Church's Simple Theory of Types with Identity as well
+     as definite and indefinite choice operators.\<close>
+
+typedecl \<iota> \<comment> \<open>No fixed type of individuals, but we can declare arbitrary types.\<close>
+type_synonym \<o> = bool \<comment> \<open>bool as type of propositions\<close>
+
+subsubsection\<open>Base types\<close>
+typ \<iota> \<comment> \<open>Individuals\<close>
+typ \<o> \<comment> \<open>Propositions\<close>
+typ "'a \<Rightarrow> 'b" \<comment> \<open>Functions\<close>
+
+subsubsection\<open>Examples of types\<close>
+typ "\<iota> \<Rightarrow> \<o>"
+typ "(\<iota> \<Rightarrow> \<o>) \<Rightarrow> \<o>"
+typ "((\<iota> \<Rightarrow> \<o>) \<Rightarrow> \<o>) \<Rightarrow> \<iota>"
+typ "((\<iota> \<Rightarrow> \<o>) \<Rightarrow> \<o>) \<Rightarrow> (\<iota> \<Rightarrow> \<iota>)"
+
+subsubsection\<open>Terms\<close>
+term "x::'a"
+term "(\<lambda>x :: 'a . \<phi> x::'b)::'a\<Rightarrow>'b"
+term "THE x . \<phi> x" \<comment> \<open>Definite Choice Operator\<close>
+term "(THE x ::'a . (\<phi>::'a\<Rightarrow>\<o>) x)::'a" \<comment> \<open>Definite Choice Operator (explicit types)\<close>
+
+subsubsection\<open>Formulas\<close>
+prop "p \<or> q" \<comment> \<open>Disjunction\<close>
+prop "p \<longrightarrow> q" \<comment> \<open>Implication\<close>
+prop "\<forall>x . \<phi> x" \<comment> \<open>Quantification\<close>
+prop "\<forall>x :: 'a . (\<phi>::'a\<Rightarrow>\<o>) x" \<comment> \<open>Quantification (explicit types)\<close>
+prop "F a" \<comment> \<open>Function application\<close>
+prop "(F::'a\<Rightarrow>\<o>) (x::'a)" \<comment> \<open>Function application (explicit types)\<close>
+prop "(\<lambda>x . F x \<or> G x) y" \<comment> \<open>Example of complex formula\<close>
+prop "x = y" \<comment> \<open>Identity\<close>
+
+subsubsection\<open>Axioms and Rules\<close>
+
+text\<open>Modus Ponens\<close>
+lemma ModusPonens: "A \<longrightarrow> B \<Longrightarrow> A \<Longrightarrow> B" using mp.
+
+text\<open>\<alpha>-equivalence is builtin (internally formulas are represented with de-Bruijin indices)\<close>
+lemma \<alpha>: "(\<lambda> x. \<phi> x) = (\<lambda>y . \<phi> y)"..
+
+text\<open>\<beta>-conversion\<close>
+lemma \<beta>: "(\<lambda> x . \<phi> x) y = \<phi> y"..
+
+text\<open>\<eta>-contraction\<close>
+lemma \<eta>: "(\<lambda> x . \<phi> x) = \<phi>"..
+
+text\<open>Identity and Substitution\<close>
+lemma "x = x" using refl.
+lemma "(\<And> x . f x = g x) \<Longrightarrow> f = g" using ext.
+lemma "x = y \<Longrightarrow> F x \<Longrightarrow> F y" using subst.
+
+text\<open>Definite Choice\<close>
+lemma "(THE x . x = a) = a" using the_eq_trivial.
+
+text\<open>We also get indefinite choice\<close>
+term "SOME x . \<phi> x"
+lemma "P x \<Longrightarrow> P (SOME x . P x)" using someI.
+
+subsection\<open>Contents of @{theory Main}\<close>
+
 text\<open>Note that @{theory Main} contains a lot more than we have seen and
      as we can show in our course, including natural numbers, lists, (typed) sets,
      mathematical theories like group theory, order theory,
-     definite and indefinite choice operators, etc. pp.\<close>
+     definite and indefinite choice operators, etc. pp.
+
+     See also: "Isabelle reference Manuals/main" in the Documentation Tab
+               on the left-hand-side of the Isabelle window.\<close>
 
 subsection\<open>apply-style vs Isar-style (Intelligible semi-automated reasoning)\<close>
 
