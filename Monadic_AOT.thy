@@ -603,6 +603,15 @@ proof -
     by (simp add: AOT_ex_def AOT_conj_def AOT_equiv_def AOT_all_def ValidNec_def)
 qed
 
+lemma NecClosure[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<phi>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> \<^bold>\<box>\<phi>]\<close>
+  by (simp add: AOT_box_def ValidNec_def)
+
+lemma ActClosure[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<phi>] \<Longrightarrow> [\<Turnstile>\<^sub>\<box> \<^bold>\<A>\<phi>]\<close>
+  by (simp add: AOT_act_def ValidIn_def ValidNec_ValidIn)
+
+lemma UnivClosure[PLM]: \<open>(\<And> x . [\<Turnstile>\<^sub>\<box> \<phi> x]) \<Longrightarrow> [\<Turnstile>\<^sub>\<box> \<^bold>\<forall>x . \<phi> x]\<close>
+  by (simp add: AOT_all_def ValidIn_def ValidNec_ValidIn)
+
 section\<open>Deductive System\<close>
 
 lemma AX[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<phi>] \<Longrightarrow> [v \<Turnstile> \<phi>]\<close>
