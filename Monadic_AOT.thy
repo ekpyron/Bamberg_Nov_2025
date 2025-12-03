@@ -108,6 +108,9 @@ definition AOT_The :: \<open>(\<kappa> \<Rightarrow> \<o>) \<Rightarrow> \<kappa
 
 text\<open>Concreteness\<close>
 
+text\<open>We need to define concreteness, s.t. we can later derive \<open>\<diamond>\<exists>x (E!x & \<not>\<A>E!x)\<close>,
+     as well as s.t. all ordinary objects will possibly be concrete.\<close>
+
 axiomatization concrete\<omega> :: \<open>\<omega> \<Rightarrow> w \<Rightarrow> bool\<close> where
   ordinary_concrete_in_some_world: \<open>\<exists> w . concrete\<omega> x w\<close> and
   contingently_nonconcrete_object: \<open>\<exists> x w . \<not>concrete\<omega> x w\<^sub>0 \<and> concrete\<omega> x w\<close>
@@ -380,7 +383,7 @@ next
     using AOT_disj_def by fastforce
 qed
 
-lemma PLM_23_2: \<open>F \<^bold>= G \<equiv>\<^sub>d\<^sub>f F\<^bold>\<down> \<^bold>& G\<^bold>\<down> \<^bold>& \<^bold>\<box>(\<^bold>\<forall>x . \<lbrace>x,F\<rbrace> \<^bold>\<equiv> \<lbrace>x,G\<rbrace>)\<close>
+lemma PLM_23_2[PLM]: \<open>F \<^bold>= G \<equiv>\<^sub>d\<^sub>f F\<^bold>\<down> \<^bold>& G\<^bold>\<down> \<^bold>& \<^bold>\<box>(\<^bold>\<forall>x . \<lbrace>x,F\<rbrace> \<^bold>\<equiv> \<lbrace>x,G\<rbrace>)\<close>
 proof(simp add: EquivDef_def; safe)
   fix w
   assume \<open>(F \<^bold>= G) w\<close>
@@ -401,7 +404,7 @@ next
     by (simp add: AOT_identity_def AOT_conj_def AOT_denotes_def)
 qed
 
-lemma PLM_23_4: \<open>p \<^bold>=\<^sub>\<o> q \<equiv>\<^sub>d\<^sub>f p\<^bold>\<down>\<^sub>\<o> \<^bold>& q\<^bold>\<down>\<^sub>\<o> \<^bold>& (\<^bold>\<lambda>x . p) \<^bold>= (\<^bold>\<lambda> x . q)\<close>
+lemma PLM_23_4[PLM]: \<open>p \<^bold>=\<^sub>\<o> q \<equiv>\<^sub>d\<^sub>f p\<^bold>\<down>\<^sub>\<o> \<^bold>& q\<^bold>\<down>\<^sub>\<o> \<^bold>& (\<^bold>\<lambda>x . p) \<^bold>= (\<^bold>\<lambda> x . q)\<close>
 proof -
   {
     fix w
@@ -422,16 +425,16 @@ qed
 
 section\<open>Deriving AOT's Axioms\<close>
 
-lemma PLM_38_1: \<open>[\<Turnstile>\<^sub>\<box> \<phi> \<^bold>\<rightarrow> (\<psi> \<^bold>\<rightarrow> \<phi>)]\<close>
+lemma PLM_38_1[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<phi> \<^bold>\<rightarrow> (\<psi> \<^bold>\<rightarrow> \<phi>)]\<close>
   by (simp add: AOT_imp_def ValidNec_def)
-lemma PLM_38_2: \<open>[\<Turnstile>\<^sub>\<box> (\<phi> \<^bold>\<rightarrow> (\<psi> \<^bold>\<rightarrow> \<chi>)) \<^bold>\<rightarrow> ((\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<rightarrow> (\<phi> \<^bold>\<rightarrow> \<chi>))]\<close>
+lemma PLM_38_2[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<phi> \<^bold>\<rightarrow> (\<psi> \<^bold>\<rightarrow> \<chi>)) \<^bold>\<rightarrow> ((\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<rightarrow> (\<phi> \<^bold>\<rightarrow> \<chi>))]\<close>
   using AOT_imp_def ValidNec_def by auto
-lemma PLM_38_3: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<not>\<phi> \<^bold>\<rightarrow> \<^bold>\<not>\<psi>) \<^bold>\<rightarrow> ((\<^bold>\<not>\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<rightarrow> \<phi>)]\<close>
+lemma PLM_38_3[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<not>\<phi> \<^bold>\<rightarrow> \<^bold>\<not>\<psi>) \<^bold>\<rightarrow> ((\<^bold>\<not>\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<rightarrow> \<phi>)]\<close>
   by (simp add: AOT_imp_def AOT_not_def ValidNec_def)
 
-lemma PLM_39_1: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<tau>\<^bold>\<down> \<^bold>\<rightarrow> \<phi> \<tau>)]\<close>
+lemma PLM_39_1[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<tau>\<^bold>\<down> \<^bold>\<rightarrow> \<phi> \<tau>)]\<close>
   by (metis AOT_all_def AOT_denotes_def AOT_imp_def ValidNec_def not_None_eq)
-lemma PLM_39_1': \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<tau>\<^bold>\<down>\<^sub>\<o> \<^bold>\<rightarrow> \<phi> \<tau>)]\<close>
+lemma PLM_39_1'[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<tau>\<^bold>\<down>\<^sub>\<o> \<^bold>\<rightarrow> \<phi> \<tau>)]\<close>
   by (simp add: AOT_all\<^sub>\<o>_def AOT_imp_def ValidNec_def)
 
 named_theorems PLM_39_2
@@ -485,50 +488,52 @@ lemma PLM_39_2_lambda_8[PLM_39_2]:
   by blast
 (* ... *)
 
+declare PLM_39_2[PLM]
+
 text\<open>Example for showing that a complex lambda-expression denotes:\<close>
 lemma "[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . p \<^bold>\<or> \<^bold>\<diamond>(\<^bold>\<forall>y . \<lparr>F,y\<rparr> \<^bold>\<rightarrow> \<lparr>\<^bold>\<lambda> z . \<lparr>G,z\<rparr> \<^bold>& \<lparr>F,x\<rparr>,x\<rparr>))\<^bold>\<down>]"
-  by (rule PLM_39_2 PLM)+
+  by (rule PLM)+
 
-lemma PLM_39_3: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . \<phi> \<alpha> \<^bold>\<rightarrow> \<psi> \<alpha>) \<^bold>\<rightarrow> ((\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<^bold>\<forall> \<alpha> . \<psi> \<alpha>))]\<close>
+lemma PLM_39_3[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall> \<alpha> . \<phi> \<alpha> \<^bold>\<rightarrow> \<psi> \<alpha>) \<^bold>\<rightarrow> ((\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<^bold>\<forall> \<alpha> . \<psi> \<alpha>))]\<close>
   by (simp add: AOT_all_def AOT_imp_def ValidNec_def)
-lemma PLM_39_3': \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha> \<^bold>\<rightarrow> \<psi> \<alpha>) \<^bold>\<rightarrow> ((\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<psi> \<alpha>))]\<close>
+lemma PLM_39_3'[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha> \<^bold>\<rightarrow> \<psi> \<alpha>) \<^bold>\<rightarrow> ((\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha>) \<^bold>\<rightarrow> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<psi> \<alpha>))]\<close>
   using AOT_all\<^sub>\<o>_def AOT_imp_def ValidNec_def by presburger
 
-lemma PLM_39_4: \<open>[\<Turnstile>\<^sub>\<box> \<phi> \<^bold>\<rightarrow> (\<^bold>\<forall> \<alpha> . \<phi>)]\<close>
+lemma PLM_39_4[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<phi> \<^bold>\<rightarrow> (\<^bold>\<forall> \<alpha> . \<phi>)]\<close>
   by (simp add: AOT_all_def AOT_imp_def ValidNec_def)
-lemma PLM_39_4': \<open>[\<Turnstile>\<^sub>\<box> \<phi> \<^bold>\<rightarrow> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi>)]\<close>
+lemma PLM_39_4'[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<phi> \<^bold>\<rightarrow> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi>)]\<close>
   by (simp add: AOT_all\<^sub>\<o>_def AOT_imp_def ValidNec_def)
 
-lemma PLM_39_5_a: \<open>[\<Turnstile>\<^sub>\<box> \<lparr>\<Pi>,\<kappa>\<rparr> \<^bold>\<rightarrow> (\<Pi>\<^bold>\<down> \<^bold>& \<kappa>\<^bold>\<down>)]\<close>
+lemma PLM_39_5_a[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<lparr>\<Pi>,\<kappa>\<rparr> \<^bold>\<rightarrow> (\<Pi>\<^bold>\<down> \<^bold>& \<kappa>\<^bold>\<down>)]\<close>
   by (metis AOT_conj_def AOT_imp_def Exe.elims PLM_39_2_a ValidNec_def)
-lemma PLM_39_5_b: \<open>[\<Turnstile>\<^sub>\<box> \<lbrace>\<kappa>,\<Pi>\<rbrace> \<^bold>\<rightarrow> (\<Pi>\<^bold>\<down> \<^bold>& \<kappa>\<^bold>\<down>)]\<close>
+lemma PLM_39_5_b[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<lbrace>\<kappa>,\<Pi>\<rbrace> \<^bold>\<rightarrow> (\<Pi>\<^bold>\<down> \<^bold>& \<kappa>\<^bold>\<down>)]\<close>
   by (metis AOT_conj_def AOT_imp_def Enc.elims PLM_39_2_a ValidNec_def)
 
-lemma PLM_41: \<open>[\<Turnstile>\<^sub>\<box> \<alpha> \<^bold>= \<beta> \<^bold>\<rightarrow> (\<phi> \<alpha> \<^bold>\<rightarrow> \<phi> \<beta>)]\<close>
+lemma PLM_41[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<alpha> \<^bold>= \<beta> \<^bold>\<rightarrow> (\<phi> \<alpha> \<^bold>\<rightarrow> \<phi> \<beta>)]\<close>
   by (simp add: AOT_conj_def AOT_identity_def AOT_imp_def ValidNec_def)
 
-lemma PLM_43: \<open>[\<Turnstile> \<^bold>\<A>\<phi> \<^bold>\<rightarrow> \<phi>]\<close>
+lemma PLM_43[PLM]: \<open>[\<Turnstile> \<^bold>\<A>\<phi> \<^bold>\<rightarrow> \<phi>]\<close>
   using AOT_act_def AOT_imp_def ValidAct_def by presburger
 
-lemma PLM_44_1: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>\<^bold>\<not>\<phi> \<^bold>\<equiv> \<^bold>\<not>\<^bold>\<A>\<phi>]\<close>
+lemma PLM_44_1[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>\<^bold>\<not>\<phi> \<^bold>\<equiv> \<^bold>\<not>\<^bold>\<A>\<phi>]\<close>
   by (simp add: AOT_act_def AOT_equiv_def AOT_not_def ValidNec_def)
-lemma PLM_44_2: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>(\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<equiv> \<^bold>\<A>\<phi> \<^bold>\<rightarrow> \<^bold>\<A>\<psi>]\<close>
+lemma PLM_44_2[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>(\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<equiv> \<^bold>\<A>\<phi> \<^bold>\<rightarrow> \<^bold>\<A>\<psi>]\<close>
   by (simp add: AOT_act_def AOT_equiv_def AOT_imp_def ValidNec_def)
-lemma PLM_44_3: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>(\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<equiv> (\<^bold>\<forall> \<alpha> . \<^bold>\<A>\<phi> \<alpha>)]\<close>
+lemma PLM_44_3[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>(\<^bold>\<forall> \<alpha> . \<phi> \<alpha>) \<^bold>\<equiv> (\<^bold>\<forall> \<alpha> . \<^bold>\<A>\<phi> \<alpha>)]\<close>
   by (simp add: AOT_act_def AOT_all_def AOT_equiv_def ValidNec_def)
-lemma PLM_44_3': \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>(\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha>) \<^bold>\<equiv> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<^bold>\<A>\<phi> \<alpha>)]\<close>
+lemma PLM_44_3'[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>(\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<phi> \<alpha>) \<^bold>\<equiv> (\<^bold>\<forall>\<^sub>\<o> \<alpha> . \<^bold>\<A>\<phi> \<alpha>)]\<close>
   by (simp add: AOT_act_def AOT_all\<^sub>\<o>_def AOT_equiv_def ValidNec_def)
-lemma PLM_44_4: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>\<phi> \<^bold>\<equiv> \<^bold>\<A>\<^bold>\<A>\<phi>]\<close>
+lemma PLM_44_4[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>\<phi> \<^bold>\<equiv> \<^bold>\<A>\<^bold>\<A>\<phi>]\<close>
   by (simp add: AOT_act_def AOT_equiv_def ValidNec_def)
 
-lemma PLM_45_1: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>(\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<rightarrow> (\<^bold>\<box>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<psi>)]\<close> \<comment> \<open>K\<close>
+lemma PLM_45_1[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>(\<phi> \<^bold>\<rightarrow> \<psi>) \<^bold>\<rightarrow> (\<^bold>\<box>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<psi>)]\<close> \<comment> \<open>K\<close>
   using AOT_box_def AOT_imp_def ValidNec_def by auto
-lemma PLM_45_2: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>\<phi> \<^bold>\<rightarrow> \<phi>]\<close> \<comment> \<open>T\<close>
+lemma PLM_45_2[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>\<phi> \<^bold>\<rightarrow> \<phi>]\<close> \<comment> \<open>T\<close>
   by (simp add: AOT_box_def AOT_imp_def ValidNec_def)
-lemma PLM_45_3: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<diamond>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<^bold>\<diamond>\<phi>]\<close> \<comment> \<open>5\<close>
+lemma PLM_45_3[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<diamond>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<^bold>\<diamond>\<phi>]\<close> \<comment> \<open>5\<close>
   by (simp add: AOT_box_def AOT_dia_def AOT_imp_def ValidNec_def)
 
-lemma PLM_45_4: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<diamond>(\<^bold>\<exists>x. \<lparr>E!,x\<rparr> \<^bold>& \<^bold>\<not>\<^bold>\<A>\<lparr>E!,x\<rparr>)]\<close>
+lemma PLM_45_4[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<diamond>(\<^bold>\<exists>x. \<lparr>E!,x\<rparr> \<^bold>& \<^bold>\<not>\<^bold>\<A>\<lparr>E!,x\<rparr>)]\<close>
 proof -
   obtain x w where 0: \<open>concrete\<omega> x w \<and> \<not>concrete\<omega> x w\<^sub>0\<close>
     using contingently_nonconcrete_object by blast
@@ -536,27 +541,27 @@ proof -
     by (auto simp: AOT_dia_def AOT_ex_def AOT_conj_def AOT_not_def AOT_act_def ValidNec_def Concrete_def intro!: exI[where x=w] exI[where x=\<open>(\<omega>\<nu> x)\<close>])
 qed
 
-lemma PLM_46_1: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<^bold>\<A>\<phi>]\<close>
+lemma PLM_46_1[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<A>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<^bold>\<A>\<phi>]\<close>
   by (simp add: AOT_act_def AOT_box_def AOT_imp_def ValidNec_def)
 
-lemma PLM_46_2: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>\<phi> \<^bold>\<equiv> \<^bold>\<A>\<^bold>\<box>\<phi>]\<close>
+lemma PLM_46_2[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<box>\<phi> \<^bold>\<equiv> \<^bold>\<A>\<^bold>\<box>\<phi>]\<close>
   by (simp add: AOT_act_def AOT_box_def AOT_equiv_def ValidNec_def)
 
-lemma PLM_47: \<open>[\<Turnstile>\<^sub>\<box> (Some y) \<^bold>= (\<^bold>\<iota>x . \<phi> x) \<^bold>\<equiv> (\<^bold>\<forall>x . \<^bold>\<A>\<phi> x \<^bold>\<equiv> x \<^bold>= (Some y))]\<close>
+lemma PLM_47[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (Some y) \<^bold>= (\<^bold>\<iota>x . \<phi> x) \<^bold>\<equiv> (\<^bold>\<forall>x . \<^bold>\<A>\<phi> x \<^bold>\<equiv> x \<^bold>= (Some y))]\<close>
   apply(auto simp add: AOT_equiv_def ValidNec_def AOT_identity_def AOT_conj_def AOT_denotes_def AOT_all_def AOT_act_def)
       apply (metis (no_types, lifting) AOT_The_def TheOpt_Not_None_simp TheOpt_Some_witness option.distinct(1))
      apply (metis (no_types, lifting) AOT_The_def TheOpt_Not_None_simp TheOpt_Some_witness option.distinct(1))
    apply (simp add: AOT_The_def TheIfExists_def)
   by (metis (no_types, lifting) AOT_The_def TheOpt_Some_witness)
 
-lemma PLM_48_1: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down> \<^bold>\<rightarrow> (\<^bold>\<lambda>x . \<phi> x) \<^bold>= (\<^bold>\<lambda>y . \<phi> y)]\<close>
+lemma PLM_48_1[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down> \<^bold>\<rightarrow> (\<^bold>\<lambda>x . \<phi> x) \<^bold>= (\<^bold>\<lambda>y . \<phi> y)]\<close>
   by (simp add: AOT_conj_def AOT_identity_def AOT_imp_def ValidNec_def)
 
-lemma PLM_48_2: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down> \<^bold>\<rightarrow> (\<lparr>\<^bold>\<lambda>x . \<phi> x,Some x\<rparr> \<^bold>\<equiv> \<phi> (Some x))]\<close>
+lemma PLM_48_2[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down> \<^bold>\<rightarrow> (\<lparr>\<^bold>\<lambda>x . \<phi> x,Some x\<rparr> \<^bold>\<equiv> \<phi> (Some x))]\<close>
   using Beta
   by (simp add: ValidNec_ValidIn AOT_imp_def AOT_equiv_def AOT_denotes_def ValidIn_def)
 
-lemma PLM_48_3: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda> x . \<lparr>Some F,x\<rparr>) \<^bold>= Some F]\<close>
+lemma PLM_48_3[PLM]: \<open>[\<Turnstile>\<^sub>\<box> (\<^bold>\<lambda> x . \<lparr>Some F,x\<rparr>) \<^bold>= Some F]\<close>
 proof -
   have \<open>[w \<Turnstile> (\<^bold>\<lambda> x . \<lparr>Some F,x\<rparr>)\<^bold>\<down>]\<close> for w
     using PLM_39_2_lambda_1 ValidNec_ValidIn by blast
@@ -580,17 +585,17 @@ proof -
     by (auto simp add: AOT_identity_def AOT_conj_def AOT_denotes_def ValidNec_def)
 qed
 
-lemma PLM_49: \<open>[\<Turnstile>\<^sub>\<box> ((\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down> \<^bold>& \<^bold>\<box>(\<^bold>\<forall>x . \<phi> x \<^bold>\<equiv> \<psi> x)) \<^bold>\<rightarrow> (\<^bold>\<lambda>x . \<psi> x)\<^bold>\<down>]\<close>
+lemma PLM_49[PLM]: \<open>[\<Turnstile>\<^sub>\<box> ((\<^bold>\<lambda>x . \<phi> x)\<^bold>\<down> \<^bold>& \<^bold>\<box>(\<^bold>\<forall>x . \<phi> x \<^bold>\<equiv> \<psi> x)) \<^bold>\<rightarrow> (\<^bold>\<lambda>x . \<psi> x)\<^bold>\<down>]\<close>
   by (simp add: ValidNec_ValidIn AOT_conj_def AOT_imp_def ValidIn_def AOT_box_def AOT_all_def AOT_equiv_def
                 Lambda_denotes[simplified ValidIn_def]) blast
 
-lemma PLM_51: \<open>[\<Turnstile>\<^sub>\<box> \<lbrace>x,F\<rbrace> \<^bold>\<rightarrow> \<^bold>\<box>\<lbrace>x,F\<rbrace>]\<close>
+lemma PLM_51[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<lbrace>x,F\<rbrace> \<^bold>\<rightarrow> \<^bold>\<box>\<lbrace>x,F\<rbrace>]\<close>
   by (metis AOT_box_def AOT_imp_def Enc.elims ValidNec_def)
 
-lemma PLM_52: \<open>[\<Turnstile>\<^sub>\<box> \<lparr>O!,x\<rparr> \<^bold>\<rightarrow> \<^bold>\<not>(\<^bold>\<exists>F . \<lbrace>x,F\<rbrace>)]\<close>
+lemma PLM_52[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<lparr>O!,x\<rparr> \<^bold>\<rightarrow> \<^bold>\<not>(\<^bold>\<exists>F . \<lbrace>x,F\<rbrace>)]\<close>
   by (metis AOT_ex_def AOT_imp_def AOT_not_def Enc.simps(3) Ordinary_sem' ValidIn_def ValidNec_ValidIn)
 
-lemma PLM_53: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<exists>x . \<lparr>A!,x\<rparr> \<^bold>& (\<^bold>\<forall>F. \<lbrace>x,F\<rbrace> \<^bold>\<equiv> \<phi> F)]\<close>
+lemma PLM_53[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<^bold>\<exists>x . \<lparr>A!,x\<rparr> \<^bold>& (\<^bold>\<forall>F. \<lbrace>x,F\<rbrace> \<^bold>\<equiv> \<phi> F)]\<close>
 proof -
   have \<open>\<exists>x. \<lparr>A!,Some x\<rparr> w \<and> (\<forall>F. \<lbrace>Some x,Some F\<rbrace> w = \<phi> (Some F) w)\<close> for w
     by (auto intro!: exI[where x=\<open>\<alpha>\<nu> {r. \<phi> (Some r) w}\<close>] simp: Abstract_sem[unfolded ValidIn_def])
@@ -600,30 +605,30 @@ qed
 
 section\<open>Deductive System\<close>
 
-lemma AX: \<open>[\<Turnstile>\<^sub>\<box> \<phi>] \<Longrightarrow> [v \<Turnstile> \<phi>]\<close>
+lemma AX[PLM]: \<open>[\<Turnstile>\<^sub>\<box> \<phi>] \<Longrightarrow> [v \<Turnstile> \<phi>]\<close>
   by (simp add: ValidNec_ValidIn)
 
-lemma MP: \<open>[v \<Turnstile> \<phi>] \<Longrightarrow> [v \<Turnstile> \<phi> \<^bold>\<rightarrow> \<psi>] \<Longrightarrow> [v \<Turnstile> \<psi>]\<close>
+lemma MP[PLM]: \<open>[v \<Turnstile> \<phi>] \<Longrightarrow> [v \<Turnstile> \<phi> \<^bold>\<rightarrow> \<psi>] \<Longrightarrow> [v \<Turnstile> \<psi>]\<close>
   by (simp add: AOT_imp_def ValidIn_def)
 
-lemma Deduction: \<open>([v \<Turnstile> \<phi>] \<Longrightarrow> [v \<Turnstile> \<psi>]) \<Longrightarrow> [v \<Turnstile> \<phi> \<^bold>\<rightarrow> \<psi>]\<close>
+lemma Deduction[PLM]: \<open>([v \<Turnstile> \<phi>] \<Longrightarrow> [v \<Turnstile> \<psi>]) \<Longrightarrow> [v \<Turnstile> \<phi> \<^bold>\<rightarrow> \<psi>]\<close>
   by (simp add: AOT_imp_def ValidIn_def)
 
-lemma GEN: \<open>(\<And> x . [v \<Turnstile> \<phi> (Some x)]) \<Longrightarrow> [v \<Turnstile> \<^bold>\<forall> x . \<phi> x]\<close>
+lemma GEN[PLM]: \<open>(\<And> x . [v \<Turnstile> \<phi> (Some x)]) \<Longrightarrow> [v \<Turnstile> \<^bold>\<forall> x . \<phi> x]\<close>
   by (simp add: AOT_all_def ValidIn_def)
-lemma GEN\<o>: \<open>(\<And> p . [v \<Turnstile> \<phi> p]) \<Longrightarrow> [v \<Turnstile> \<^bold>\<forall>\<^sub>\<o> p . \<phi> p]\<close>
+lemma GEN\<o>[PLM]: \<open>(\<And> p . [v \<Turnstile> \<phi> p]) \<Longrightarrow> [v \<Turnstile> \<^bold>\<forall>\<^sub>\<o> p . \<phi> p]\<close>
   using AOT_all\<^sub>\<o>_def ValidIn_def by auto
 
-lemma RN: \<open>(\<And> v . [v \<Turnstile> \<phi>]) \<Longrightarrow> [v \<Turnstile> \<^bold>\<box>\<phi>]\<close>
+lemma RN[PLM]: \<open>(\<And> v . [v \<Turnstile> \<phi>]) \<Longrightarrow> [v \<Turnstile> \<^bold>\<box>\<phi>]\<close>
   using AOT_box_def ValidIn_def by force
 
-lemma EquivDefE1: \<open>\<phi> \<equiv>\<^sub>d\<^sub>f \<psi> \<Longrightarrow> [v \<Turnstile> \<phi> \<^bold>\<rightarrow> \<psi>]\<close>
+lemma EquivDefE1[PLM]: \<open>\<phi> \<equiv>\<^sub>d\<^sub>f \<psi> \<Longrightarrow> [v \<Turnstile> \<phi> \<^bold>\<rightarrow> \<psi>]\<close>
   by (simp add: AOT_imp_def EquivDef_def ValidIn_def)
 
-lemma EquivDefE2: \<open>\<phi> \<equiv>\<^sub>d\<^sub>f \<psi> \<Longrightarrow> [v \<Turnstile> \<psi> \<^bold>\<rightarrow> \<phi>]\<close>
+lemma EquivDefE2[PLM]: \<open>\<phi> \<equiv>\<^sub>d\<^sub>f \<psi> \<Longrightarrow> [v \<Turnstile> \<psi> \<^bold>\<rightarrow> \<phi>]\<close>
   by (simp add: AOT_imp_def EquivDef_def ValidIn_def)
 
-lemma IdDefE: \<open>\<tau> =\<^sub>d\<^sub>f \<sigma> \<Longrightarrow> [v \<Turnstile> (\<sigma>\<^bold>\<down> \<^bold>\<rightarrow> \<tau> \<^bold>= \<sigma>) \<^bold>& (\<^bold>\<not>\<sigma>\<^bold>\<down> \<^bold>\<rightarrow> \<^bold>\<not>\<tau>\<^bold>\<down>)]\<close>
+lemma IdDefE[PLM]: \<open>\<tau> =\<^sub>d\<^sub>f \<sigma> \<Longrightarrow> [v \<Turnstile> (\<sigma>\<^bold>\<down> \<^bold>\<rightarrow> \<tau> \<^bold>= \<sigma>) \<^bold>& (\<^bold>\<not>\<sigma>\<^bold>\<down> \<^bold>\<rightarrow> \<^bold>\<not>\<tau>\<^bold>\<down>)]\<close>
   by (smt (verit, del_insts) AOT_conj_def AOT_identity_def AOT_imp_def IdDef.simps(1,2) ValidIn_def not_Some_eq)
 
 text\<open>For a full hyperintensional implementation of second order AOT that reproduces PLM's syntax see
